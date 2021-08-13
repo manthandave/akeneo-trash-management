@@ -1,0 +1,20 @@
+# Remove product
+ktpl_akeneo_trash_index:
+    type: action
+    label: ktpl.akeneo_trash.acl.akeneo_trash.index
+    group_name: ktpl.acl_group.akeneo_trash
+
+ktpl_akeneo_trash_product_index:
+    type: action
+    label: ktpl.akeneo_trash.acl.akeneo_trash.product.index
+    group_name: ktpl.acl_group.akeneo_trash
+
+ktpl_akeneo_trash_remove_product:
+    type: action
+    label: ktpl.akeneo_trash.acl.akeneo_trash.product.remove
+    group_name: ktpl.acl_group.akeneo_trash
+
+ktpl_akeneo_trash_restore_trash:
+    type: action
+    label: ktpl.akeneo_trash.acl.akeneo_trash.restore_trash
+    group_name: ktpl.acl_group.akeneo_trash

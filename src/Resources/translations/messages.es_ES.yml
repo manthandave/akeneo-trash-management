@@ -1,0 +1,11 @@
+ktpl:
+  akeneo_trash:
+    acl:
+      akeneo_trash:
+        index: List Trash
+        product:
+          index: List products in product trash grid
+          remove: Remove products from akeneo
+        restore_trash: Restore item from trash
+  acl_group:
+    akeneo_trash: Trash Management

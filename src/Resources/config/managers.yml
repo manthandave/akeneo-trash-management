@@ -1,0 +1,8 @@
+services:
+    ktpl.akeneo_trash.manager.akeneo_trash:
+        class: 'KTPL\AkeneoTrashBundle\Manager\AkeneoTrashManager'
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
+            - '@ktpl.akeneo_trash.repository.akeneo_trash'
+            - '@ktpl.akeneo_trash.factory.akeneo_trash'
+            - '@security.token_storage'

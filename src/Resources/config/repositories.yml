@@ -1,0 +1,7 @@
+services:
+    ktpl.akeneo_trash.repository.akeneo_trash:
+      class: 'KTPL\AkeneoTrashBundle\Repository\AkeneoTrashRepository'
+      factory: 'doctrine.orm.default_entity_manager:getRepository'
+      arguments: ['KTPL\AkeneoTrashBundle\Entity\AkeneoTrash']
+      tags:
+          - { name: 'pim_repository' }

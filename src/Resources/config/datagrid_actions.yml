@@ -1,0 +1,14 @@
+services:
+    ktpl.akeneo_trash.extension.action.type.delete_product_trash:
+        public: true
+        class: '%pim_enrich.extension.action.type.delete_product.class%'
+        shared: false
+        tags:
+            - { name: oro_datagrid.extension.action.type, type: delete-product-trash }
+
+    ktpl.akeneo_trash.extension.action.type.restore_product_trash:
+        public: true
+        class: '%pim_enrich.extension.action.type.delete_product.class%'
+        shared: false
+        tags:
+            - { name: oro_datagrid.extension.action.type, type: delete-restore-product-trash }

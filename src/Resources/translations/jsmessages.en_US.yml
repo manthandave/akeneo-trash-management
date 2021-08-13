@@ -1,0 +1,32 @@
+ktpl:
+  akeneo_trash:
+    menu:
+      tab:
+        trash: Trash Management
+    navigation:
+      trash: Trash Navigation
+    akeneo_trash:
+      entity:
+        product:
+          flash:
+            restore:
+              success: Product successfully restored
+              fail: Error in restoring product
+          restore:
+            confirm: Are you sure you want to restore this product?
+        product_model:
+          flash:
+            restore:
+              success: Product model successfully restored
+              fail: Error in restoring product model
+          restore:
+            confirm: Are you sure you want to restore this product model?
+        confirm_restore: Confirm restore
+        confirm_content: Are you sure you want to restore the selected products and product models?
+pim_datagrid:
+  actions:
+    restore_trash: Restore
+  mass_action:
+    mass_restore: Mass restore
+pim_title:
+  ktpl_akeneo_trash_product_index: Trash Management | Products

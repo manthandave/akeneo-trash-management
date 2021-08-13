@@ -1,0 +1,32 @@
+services:
+    pim_catalog.remover.product:
+        class: 'KTPL\AkeneoTrashBundle\Remover\BaseRemover'
+        arguments:
+            - '@pim_catalog.object_manager.product'
+            - '@event_dispatcher'
+            - '%pim_catalog.model.product.interface%'
+            - '@ktpl.akeneo_trash.manager.akeneo_trash'
+
+    pim_catalog.remover.product_model:
+        class: 'KTPL\AkeneoTrashBundle\Remover\BaseRemover'
+        arguments:
+            - '@pim_catalog.object_manager.product'
+            - '@event_dispatcher'
+            - '%pim_catalog.model.product_model.interface%'
+            - '@ktpl.akeneo_trash.manager.akeneo_trash'
+
+    ktpl.akeneo_trash.remover.product:
+        class: 'KTPL\AkeneoTrashBundle\Remover\BasePermanentRemover'
+        arguments:
+            - '@pim_catalog.object_manager.product'
+            - '@event_dispatcher'
+            - '%pim_catalog.model.product.interface%'
+            - '@ktpl.akeneo_trash.manager.akeneo_trash'
+
+    ktpl.akeneo_trash.remover.product_model:
+        class: 'KTPL\AkeneoTrashBundle\Remover\BasePermanentRemover'
+        arguments:
+            - '@pim_catalog.object_manager.product'
+            - '@event_dispatcher'
+            - '%pim_catalog.model.product_model.interface%'
+            - '@ktpl.akeneo_trash.manager.akeneo_trash'

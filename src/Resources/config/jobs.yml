@@ -1,0 +1,28 @@
+parameters:
+    ktpl.akeneo_trash.job.name.delete_products_and_product_models: 'delete_products_product_models_from_trash'
+    ktpl.akeneo_trash.job.name.restore_products_and_product_models: 'restore_products_product_models_from_trash'
+    ktpl.akeneo_trash.connector_name.mass_edit: 'Akeneo Trash Mass Edit Connector'
+services:
+    ktpl.akeneo_trash.job.delete_products_and_product_models:
+        class: '%pim_connector.job.simple_job.class%'
+        arguments:
+            - '%ktpl.akeneo_trash.job.name.delete_products_and_product_models%'
+            - '@event_dispatcher'
+            - '@akeneo_batch.job_repository'
+            -
+                - '@ktpl.akeneo_trash.step.delete_products_and_product_models.mass_edit'
+            - true
+        tags:
+            - { name: akeneo_batch.job, connector: '%ktpl.akeneo_trash.connector_name.mass_edit%', type: '%pim_enrich.job.mass_edit_type%' }
+    
+    ktpl.akeneo_trash.job.restore_products_and_product_models:
+        class: '%pim_connector.job.simple_job.class%'
+        arguments:
+            - '%ktpl.akeneo_trash.job.name.restore_products_and_product_models%'
+            - '@event_dispatcher'
+            - '@akeneo_batch.job_repository'
+            -
+                - '@ktpl.akeneo_trash.step.restore_products_and_product_models.mass_edit'
+            - true
+        tags:
+            - { name: akeneo_batch.job, connector: '%ktpl.akeneo_trash.connector_name.mass_edit%', type: '%pim_enrich.job.mass_edit_type%' }

@@ -1,0 +1,37 @@
+{
+    "name": "krishtechnolabs/akeneo-trash-bundle",
+    "description": "The Akeneo Trash Management help us to restore the deleted products back in the Akeneo.",
+    "keywords": ["akeneo", "trash", "management"],
+    "type": "library",
+    "minimum-stability": "stable",
+    "license": "MIT",
+    "version": "1.0.0",
+    "authors": [
+      {
+        "name": "Krishan Kant",
+        "email": "krishan.kant@krishtechnolabs.com"
+      }
+    ],
+    "autoload": {
+      "psr-4": {
+        "KTPL\\AkeneoTrashBundle\\": "src/"
+      }
+    },
+    "repositories": [
+      {
+        "type": "vcs",
+        "url": "https://github.com/manthandave/akeneo-trash-management",
+        "branch": "main"
+      },
+      {
+        "type": "vcs",
+        "url": "https://github.com/akeneo/pim-community-dev.git",
+        "branch": "master",
+        "no-api": true
+      }
+    ],
+    "require": {
+      "akeneo/pim-community-dev": "^5.0",
+      "ext-json": "*"
+    }
+  }

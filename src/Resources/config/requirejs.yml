@@ -1,0 +1,30 @@
+config:
+  config:
+    oro/datagrid/akeneo_trash_mass_delete-action:
+      jobInstanceCode: delete_products_product_models_from_trash
+      route: pim_enrich_mass_edit_rest_launch
+      backRoute: ktpl_akeneo_trash_product_index
+      launchErrorLabel: pim_enrich.mass_edit.product.step.launch_error.label
+      launchedLabel: pim_enrich.mass_edit.product.step.launched.label
+      confirmLabel: pim_enrich.entity.product_model.module.delete.confirm_for_products_and_product_models
+    oro/datagrid/akeneo_trash_mass_restore-action:
+      jobInstanceCode: restore_products_product_models_from_trash
+      route: pim_enrich_mass_edit_rest_launch
+      backRoute: ktpl_akeneo_trash_product_index
+      launchErrorLabel: pim_enrich.mass_edit.product.step.launch_error.label
+      launchedLabel: pim_enrich.mass_edit.product.step.launched.label
+      confirmLabel: ktpl.akeneo_trash.entity.confirm_content
+    pim/controller-registry:
+      controllers:
+        ktpl_akeneo_trash_product_index:
+          module: ktpl/akeneotrash/controller/trash-product/index
+          aclResourceId: ktpl_akeneo_trash_product_index
+          config:
+            gridExtension: ktpl_akeneo_trash-product-index
+            gridName: ktpl_akeneo_trash_product
+  paths:
+    ktpl/akeneotrash/controller/trash-product/index:  akeneotrash/js/controller/trash-product/index
+    oro/datagrid/akeneo_trash_mass_delete-action:     akeneotrash/js/datagrid/action/mass-delete-action
+    oro/datagrid/akeneo_trash_mass_restore-action:    akeneotrash/js/datagrid/action/mass-restore-action
+    oro/datagrid/delete-product-trash-action:         akeneotrash/js/datagrid/action/delete-product-trash-action
+    oro/datagrid/delete-restore-product-trash-action: akeneotrash/js/datagrid/action/restore-product-trash-action
