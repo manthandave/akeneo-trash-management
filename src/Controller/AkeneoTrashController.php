@@ -19,7 +19,7 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
- * The magento bundle product controller
+ * The Akeneo trash controller
  *
  * @author    Krishan Kant <krishan.kant@krishtechnolabs.com>
  * @copyright 2021 Krishtechnolabs (https://www.krishtechnolabs.com/)

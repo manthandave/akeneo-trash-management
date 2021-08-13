@@ -8,6 +8,13 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Command\Command;
 
+/**
+ * The connector installation commnand
+ *
+ * @author    Krishan Kant <krishan.kant@krishtechnolabs.com>
+ * @copyright 2021 Krishtechnolabs (https://www.krishtechnolabs.com/)
+ * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+ */
 class InstallationCommand extends Command
 {
     /** @var string Default command name */
