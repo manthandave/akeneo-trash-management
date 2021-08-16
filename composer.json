@@ -21,7 +21,7 @@
       {
         "type": "vcs",
         "url": "https://github.com/manthandave/akeneo-trash-management",
-        "branch": "main"
+        "branch": "5.0"
       },
       {
         "type": "vcs",
