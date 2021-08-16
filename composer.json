@@ -5,7 +5,7 @@
     "type": "library",
     "minimum-stability": "stable",
     "license": "MIT",
-    "version": "5.0",
+    "version": "5.0.1.0",
     "authors": [
       {
         "name": "Krish Technolabs",
