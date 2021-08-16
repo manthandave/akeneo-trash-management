@@ -5,7 +5,7 @@
     "type": "library",
     "minimum-stability": "stable",
     "license": "MIT",
-    "version": "1.0.0",
+    "version": "5.0",
     "authors": [
       {
         "name": "Krish Technolabs",
@@ -26,7 +26,7 @@
       {
         "type": "vcs",
         "url": "https://github.com/akeneo/pim-community-dev.git",
-        "branch": "master",
+        "branch": "5.0",
         "no-api": true
       }
     ],
