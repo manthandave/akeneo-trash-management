@@ -6,7 +6,7 @@ services:
             - '@oro_datagrid.datagrid.manager'
             - '@oro_datagrid.datagrid.request_params'
             - '@oro_datagrid.mass_action.parameters_parser'
-            - ['product-grid', 'proposal-grid', 'published-product-grid', 'ktpl_akeneo_product_trash-grid']]
+            - ['product-grid', 'proposal-grid', 'published-product-grid', 'ktpl_akeneo_product_trash-grid']
 
     pim_datagrid.extension.mass_action.type.product_akeneo_trash_mass_delete:
         public: true

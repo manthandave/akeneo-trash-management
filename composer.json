@@ -31,7 +31,6 @@
       }
     ],
     "require": {
-      "akeneo/pim-community-dev": "^5.0",
-      "ext-json": "*"
+      "akeneo/pim-community-dev": "^5.0"
     }
   }
