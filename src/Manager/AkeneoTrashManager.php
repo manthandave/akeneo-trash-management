@@ -105,7 +105,8 @@ class AkeneoTrashManager
         $resource = $this->akeneoTrashRepository->findOneBy([
             'resourceId' => $resourceId,
             'resourceName' => $resourceName
-            ]);
+        ]);
+        
         if ($resource) {
             $this->objectManager->remove($resource);
             $this->objectManager->flush($resource);

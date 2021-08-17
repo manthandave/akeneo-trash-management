@@ -60,8 +60,12 @@ class BasePermanentRemover implements RemoverInterface, BulkRemoverInterface
         $this->akeneoTrashManager->removeItemFromTrash($object);
         
         $objectId = $object->getId();
-        $this->eventDispatcher->dispatch(StorageEvents::PRE_REMOVE, new RemoveEvent($object, $objectId, $options));
 
+        $this->eventDispatcher->dispatch(StorageEvents::PRE_REMOVE, new RemoveEvent($object, $objectId, $options));
+        
+        // Merging object before remove to fix the issue detached entity cannot be removed
+        $object = $this->objectManager->merge($object);
+        
         $this->objectManager->remove($object);
         $this->objectManager->flush();
 
@@ -89,6 +93,9 @@ class BasePermanentRemover implements RemoverInterface, BulkRemoverInterface
             $removedObjects[$object->getId()] = $object;
 
             $this->eventDispatcher->dispatch(StorageEvents::PRE_REMOVE, new RemoveEvent($object, $object->getId(), $options));
+
+            // Merging object before remove to fix the issue detached entity cannot be removed
+            $object = $this->objectManager->merge($object);
 
             $this->objectManager->remove($object);
         }
