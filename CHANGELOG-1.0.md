@@ -1,7 +1,7 @@
 
 # 1.0.0
-- Compatible with Akeneo 5
-- Compatible with Akeneo 4
+- Compatible with Akeneo 5 CE 
+- Compatible with Akeneo 4 CE & EE
 ## Features
 
 - Remove the products from the product grid and move to the trash
