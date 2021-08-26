@@ -35,7 +35,49 @@ class InstallationCommand extends Command
             'code' => 'restore_products_product_models_from_trash',
             'config' => '{}',
             'label' => 'Mass restore products from akeneo trash'
-        ]
+        ],
+        'delete_categories_from_trash' => [
+            'connector' => 'Akeneo Trash Mass Edit Connector',
+            'type' => 'mass_delete',
+            'code' => 'delete_categories_from_trash',
+            'config' => '{}',
+            'label' => 'Mass delete categories from akeneo trash'
+        ],
+        'restore_categories_from_trash' => [
+            'connector' => 'Akeneo Trash Mass Edit Connector',
+            'type' => 'mass_restore',
+            'code' => 'restore_categories_from_trash',
+            'config' => '{}',
+            'label' => 'Mass restore categories from akeneo trash'
+        ],
+        'delete_families_from_trash' => [
+            'connector' => 'Akeneo Trash Mass Edit Connector',
+            'type' => 'mass_delete',
+            'code' => 'delete_families_from_trash',
+            'config' => '{}',
+            'label' => 'Mass delete families from akeneo trash'
+        ],
+        'restore_families_from_trash' => [
+            'connector' => 'Akeneo Trash Mass Edit Connector',
+            'type' => 'mass_restore',
+            'code' => 'restore_families_from_trash',
+            'config' => '{}',
+            'label' => 'Mass restore families from akeneo trash'
+        ],
+        'delete_family_variants_from_trash' => [
+            'connector' => 'Akeneo Trash Mass Edit Connector',
+            'type' => 'mass_delete',
+            'code' => 'delete_family_variants_from_trash',
+            'config' => '{}',
+            'label' => 'Mass delete family variants from akeneo trash'
+        ],
+        'restore_family_variants_from_trash' => [
+            'connector' => 'Akeneo Trash Mass Edit Connector',
+            'type' => 'mass_restore',
+            'code' => 'restore_family_variants_from_trash',
+            'config' => '{}',
+            'label' => 'Mass restore family variants from akeneo trash'
+        ],
     ];
 
     /** @var JobInstanceRepository */
