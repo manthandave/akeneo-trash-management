@@ -26,7 +26,7 @@
       {
         "type": "vcs",
         "url": "https://github.com/akeneo/pim-community-dev.git",
-        "branch": "master",
+        "branch": "4.0",
         "no-api": true
       }
     ],
