@@ -27,6 +27,8 @@ class AkeneoTrashExtension extends Extension
         $loader->load('commands.yml');
         $loader->load('datagrid_listeners.yml');
         $loader->load('datagrid_actions.yml');
+        $loader->load('data_sources.yml');
+        $loader->load('normalizers.yml');
         $loader->load('factories.yml');
         $loader->load('jobs.yml');
         $loader->load('job_constraints.yml');

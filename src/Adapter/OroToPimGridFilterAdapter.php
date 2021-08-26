@@ -24,7 +24,33 @@ class OroToPimGridFilterAdapter extends BaseOroToPimGridFilterAdapter
         if (self::PRODUCT_TRASH_GRID_NAME === $parameters['gridName']) {
             $filters = $this->massActionDispatcher->getRawFilters($parameters);
         } else {
-            $filters = parent::adapt($parameters);
+            $filters = $this->getRawFilters($parameters);
+        }
+
+        return $filters;
+    }
+
+    /**
+     * Get Raw filters
+     *
+     * @param array
+     *
+     * @return array
+     */
+    private function getRawFilters(array $parameters)
+    {
+        $filters = [['field' => 'id', 'operator' => 'IN', 'value' => $parameters['values']]];
+        $contextParams = [
+            'locale' => $dataLocale['dataLocale'] ?? null,
+            'scope'  => !empty($parameters['scopeCode']) ? [$parameters['scopeCode']] : null,
+        ];
+
+        foreach ($filters as &$filter) {
+            if (isset($filter['context'])) {
+                $filter['context'] = array_merge($filter['context'], $contextParams);
+            } else {
+                $filter['context'] = $contextParams;
+            }
         }
 
         return $filters;

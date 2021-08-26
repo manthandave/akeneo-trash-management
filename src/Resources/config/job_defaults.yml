@@ -14,3 +14,16 @@ services:
                 - 'restore_products_product_models_from_trash'
         tags:
             - { name: akeneo_batch.job.job_parameters.default_values_provider }
+
+    ktpl.akeneo_trash.connector.job.job_parameters.default_values_provider.common_restore:
+        class: 'KTPL\AkeneoTrashBundle\Job\JobParameters\DefaultValueProvider\CommonMassEdit'
+        arguments:
+            -
+                - 'delete_categories_from_trash'
+                - 'restore_categories_from_trash'
+                - 'delete_families_from_trash'
+                - 'restore_families_from_trash'
+                - 'delete_family_variants_from_trash'
+                - 'restore_family_variants_from_trash'
+        tags:
+            - { name: akeneo_batch.job.job_parameters.default_values_provider }

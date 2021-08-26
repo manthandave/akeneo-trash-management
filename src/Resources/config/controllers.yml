@@ -10,6 +10,12 @@ services:
             - '@akeneo_elasticsearch.client.product_and_product_model'
             - '@pim_catalog.filter.chained'
             - '@ktpl.akeneo_trash.manager.akeneo_trash'
+            - '@pim_catalog.repository.category'
+            - '@ktpl.akeneo_trash.remover.category'
+            - '@pim_catalog.repository.family'
+            - '@ktpl.akeneo_trash.remover.family'
+            - '@pim_catalog.repository.family_variant'
+            - '@ktpl.akeneo_trash.remover.family_variant'
 
     ktpl.akeneo_trash.controller.rest.mass_edit:
         public: true

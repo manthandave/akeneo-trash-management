@@ -3,17 +3,24 @@
 namespace KTPL\AkeneoTrashBundle\Controller;
 
 use Akeneo\Pim\Enrichment\Bundle\Filter\ObjectFilterInterface;
+use Akeneo\Pim\Enrichment\Component\Category\Model\CategoryInterface;
 use Akeneo\Pim\Enrichment\Component\Product\Model\ProductInterface;
 use Akeneo\Pim\Enrichment\Component\Product\Model\ProductModelInterface;
 use Akeneo\Pim\Enrichment\Component\Product\Repository\ProductRepositoryInterface;
 use Akeneo\Pim\Enrichment\Component\Product\Repository\ProductModelRepositoryInterface;
+use Akeneo\Pim\Structure\Component\Model\FamilyInterface;
+use Akeneo\Pim\Structure\Component\Model\FamilyVariantInterface;
+use Akeneo\Pim\Structure\Component\Repository\FamilyRepositoryInterface;
+use Akeneo\Pim\Structure\Component\Repository\FamilyVariantRepositoryInterface;
 use Akeneo\Tool\Bundle\ElasticsearchBundle\Client;
+use Akeneo\Tool\Component\Classification\Repository\CategoryRepositoryInterface;
 use Akeneo\Tool\Component\StorageUtils\Remover\RemoverInterface;
 use KTPL\AkeneoTrashBundle\Manager\AkeneoTrashManager;
 use Oro\Bundle\SecurityBundle\Annotation\AclAncestor;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -28,13 +35,13 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class AkeneoTrashController
 {
     /** @var ProductRepositoryInterface */
-    protected $productRepository;
+    private $productRepository;
 
     /** @var ProductModelRepositoryInterface */
     private $productModelRepository;
 
     /** @var RemoverInterface */
-    protected $productRemover;
+    private $productRemover;
 
     /** @var RemoverInterface */
     private $productModelRemover;
@@ -46,7 +53,25 @@ class AkeneoTrashController
     private $objectFilter;
 
     /** @var AkeneoTrashManager */
-    protected $akeneoTrashManager;
+    private $akeneoTrashManager;
+
+    /** @var CategoryRepositoryInterface */
+    private $categoryRepository;
+
+    /** @var RemoverInterface */
+    private $categoryRemover;
+
+    /** @var FamilyRepositoryInterface */
+    private $familyRepository;
+
+    /** @var RemoverInterface */
+    private $familyRemover;
+
+    /** @var FamilyVariantRepositoryInterface */
+    private $familyVariantRepository;
+    
+    /** @var RemoverInterface */
+    private $familyVariantRemover;
 
     public function __construct(
         ProductRepositoryInterface $productRepository,
@@ -55,7 +80,13 @@ class AkeneoTrashController
         RemoverInterface $productModelRemover,
         Client $productAndProductModelClient,
         ObjectFilterInterface $objectFilter,
-        AkeneoTrashManager $akeneoTrashManager
+        AkeneoTrashManager $akeneoTrashManager,
+        CategoryRepositoryInterface $categoryRepository,
+        RemoverInterface $categoryRemover,
+        FamilyRepositoryInterface $familyRepository,
+        RemoverInterface $familyRemover,
+        FamilyVariantRepositoryInterface $familyVariantRepository,
+        RemoverInterface $familyVariantRemover
     ) {
         $this->productRepository = $productRepository;
         $this->productModelRepository = $productModelRepository;
@@ -64,6 +95,12 @@ class AkeneoTrashController
         $this->productAndProductModelClient = $productAndProductModelClient;
         $this->objectFilter = $objectFilter;
         $this->akeneoTrashManager = $akeneoTrashManager;
+        $this->categoryRepository = $categoryRepository;
+        $this->categoryRemover = $categoryRemover;
+        $this->familyRepository = $familyRepository;
+        $this->familyRemover = $familyRemover;
+        $this->familyVariantRepository = $familyVariantRepository;
+        $this->familyVariantRemover = $familyVariantRemover;
     }
 
     /**
@@ -112,6 +149,93 @@ class AkeneoTrashController
         $this->productAndProductModelClient->refreshIndex();
 
         return new JsonResponse();
+    }
+
+    /**
+     * Remove category
+     *
+     * @param Request $request
+     * @param int     $id
+     *
+     * @AclAncestor("ktpl_akeneo_trash_remove_category")
+     *
+     * @return JsonResponse
+     */
+    public function removeCategoryAction(Request $request, $id)
+    {
+        if (!$request->isXmlHttpRequest()) {
+            return new RedirectResponse('/');
+        }
+
+        $category = $this->findCategoryOr404($id);
+
+        $this->categoryRemover->remove($category);
+
+        return new JsonResponse();
+    }
+
+    /**
+     * Removes given family
+     *
+     * @AclAncestor("ktpl_akeneo_trash_remove_family")
+     *
+     * @param Request $request
+     * @param int     $id
+     *
+     * @return Response
+     */
+    public function removeFamilyAction(Request $request, $id)
+    {
+        if (!$request->isXmlHttpRequest()) {
+            return new RedirectResponse('/');
+        }
+
+        $family = $this->getFamily($id);
+
+        try {
+            $this->familyRemover->remove($family);
+        } catch (\LogicException $e) {
+            return new JsonResponse(
+                [
+                    'message' => $e->getMessage(),
+                ],
+                Response::HTTP_UNPROCESSABLE_ENTITY
+            );
+        }
+
+        return new JsonResponse(null, Response::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * @param Request $request
+     * @param int     $id
+     *
+     * @return JsonResponse
+     *
+     * @AclAncestor("ktpl_akeneo_trash_remove_family_variant")
+     */
+    public function removeFamilyVariantAction(Request $request, $id)
+    {
+        if (!$request->isXmlHttpRequest()) {
+            return new JsonResponse(['message' => 'An error occurred.', 'global' => true], Response::HTTP_BAD_REQUEST);
+        }
+
+        $familyVariant = $this->getFamilyVariant($id);
+        try {
+            $this->familyVariantRemover->remove($familyVariant);
+        } catch (\LogicException $e) {
+            return new JsonResponse(
+                [
+                    'message' => sprintf(
+                        'Cannot remove family variant "%s" as it is used by some product models',
+                        $familyVariant->getCode()
+                    ),
+                ],
+                Response::HTTP_UNPROCESSABLE_ENTITY
+            );
+        }
+
+        return new JsonResponse(null, Response::HTTP_NO_CONTENT);
     }
 
     /**
@@ -182,5 +306,69 @@ class AkeneoTrashController
         }
 
         return $productModel;
+    }
+
+    /**
+     * Find a category by its id or return a 404 response
+     *
+     * @param string $id the category id
+     *
+     * @throws NotFoundHttpException
+     *
+     * @return CategoryInterface
+     */
+    protected function findCategoryOr404($id)
+    {
+        $category = $this->categoryRepository->find($id);
+
+        if (null === $category) {
+            throw new NotFoundHttpException(
+                sprintf('Category with id %s could not be found.', $id)
+            );
+        }
+
+        return $category;
+    }
+
+    /**
+     * Gets family
+     *
+     * @param int $id
+     *
+     * @throws NotFoundHttpException
+     *
+     * @return FamilyInterface
+     */
+    protected function getFamily($id): FamilyInterface
+    {
+        $family = $this->familyRepository->find($id);
+
+        if (null === $family) {
+            throw new NotFoundHttpException(
+                sprintf('Family with id %s does not exist.', $id)
+            );
+        }
+
+        return $family;
+    }
+
+    /**
+     * Gets familyVariant using its id
+     *
+     * @param int $id
+     *
+     * @return FamilyVariantInterface
+     */
+    protected function getFamilyVariant($id): FamilyVariantInterface
+    {
+        $familyVariant = $this->familyVariantRepository->find($id);
+
+        if (null === $familyVariant) {
+            throw new NotFoundHttpException(
+                sprintf('Family variant with id %s does not exist.', $id)
+            );
+        }
+
+        return $familyVariant;
     }
 }

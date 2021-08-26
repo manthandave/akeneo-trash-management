@@ -15,3 +15,15 @@ services:
         tags:
             - { name: akeneo_batch.job.job_parameters.constraint_collection_provider }
 
+    ktpl.akeneo_trash.connector.job.job_parameters.constraint_collection_provider.commaon_mass_edit:
+        class: 'KTPL\AkeneoTrashBundle\Job\JobParameters\ConstraintCollectionProvider\CommonMassEdit'
+        arguments:
+            -
+                - 'delete_categories_from_trash'
+                - 'restore_categories_from_trash'
+                - 'delete_families_from_trash'
+                - 'restore_families_from_trash'
+                - 'delete_family_variants_from_trash'
+                - 'restore_family_variants_from_trash'
+        tags:
+            - { name: akeneo_batch.job.job_parameters.constraint_collection_provider }
