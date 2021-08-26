@@ -33,3 +33,30 @@ extensions:
         config:
             title: pim_enrich.entity.product.plural_label
             to: ktpl_akeneo_trash_product_index
+
+    ktpl-akeneo_trash-menu-product-category:
+        module: pim/menu/item
+        parent: ktpl-akeneo_trash-menu-trash-navigation-block
+        aclResourceId: ktpl_akeneo_trash_category_index
+        position: 10
+        config:
+            title: pim_enrich.entity.category.plural_label
+            to: ktpl_akeneo_trash-category-index
+
+    ktpl-akeneo_trash-menu-family:
+        module: pim/menu/item
+        parent: ktpl-akeneo_trash-menu-trash-navigation-block
+        aclResourceId: ktpl_akeneo_trash_family_index
+        position: 20
+        config:
+            title: pim_enrich.entity.family.plural_label
+            to: ktpl_akeneo_trash-family-index
+
+    ktpl-akeneo_trash-menu-family-variant:
+        module: pim/menu/item
+        parent: ktpl-akeneo_trash-menu-trash-navigation-block
+        aclResourceId: ktpl_akeneo_trash_family_variant_index
+        position: 30
+        config:
+            title: pim_enrich.entity.family_variant.plural_label
+            to: ktpl_akeneo_trash-family_variant-index

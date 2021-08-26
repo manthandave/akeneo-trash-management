@@ -150,26 +150,26 @@ class RestoreProductsAndProductModelsTasklet implements TaskletInterface
     private function restore(CursorInterface $products): void
     {
         $loopCount = 0;
-        $entitiesToRestore = [];
+        $entitiesToRemove = [];
         while ($products->valid()) {
             $product = $products->current();
             if (!$this->filter->filterObject($product, 'pim.enrich.product.restore')) {
-                $entitiesToRestore[] = $product;
+                $entitiesToRemove[] = $product;
             } else {
                 $this->stepExecution->incrementSummaryInfo('skip');
             }
 
             $loopCount++;
             if ($this->batchSizeIsReached($loopCount)) {
-                $this->doRestore($entitiesToRestore);
-                $entitiesToRestore = [];
+                $this->doRestore($entitiesToRemove);
+                $entitiesToRemove = [];
             }
             $products->next();
             $this->stepExecution->incrementReadCount();
         }
 
-        if (!empty($entitiesToRestore)) {
-            $this->doRestore($entitiesToRestore);
+        if (!empty($entitiesToRemove)) {
+            $this->doRestore($entitiesToRemove);
             $this->jobRepository->updateStepExecution($this->stepExecution);
         }
     }
@@ -189,10 +189,10 @@ class RestoreProductsAndProductModelsTasklet implements TaskletInterface
 
         $this->akeneoTrashManager->removeItemsFromTrash($products);
         $this->stepExecution->incrementSummaryInfo('retored_products', $restoredProductsCount);
-        
+
         $this->akeneoTrashManager->removeItemsFromTrash($productModels);
         $this->stepExecution->incrementSummaryInfo('retored_product_models', $restoredProductModelsCount);
-        
+
         $this->cacheClearer->clear();
     }
 

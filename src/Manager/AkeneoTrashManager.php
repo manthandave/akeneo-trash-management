@@ -42,6 +42,21 @@ class AkeneoTrashManager
             'table' => 'pim_catalog_product_model',
             'code' => 'code'
         ],
+        'category' => [
+            'resource_name' => 'Akeneo\Pim\Enrichment\Component\Category\Model\Category',
+            'table' => 'pim_catalog_category',
+            'code' => 'code'
+        ],
+        'family' => [
+            'resource_name' => 'Akeneo\Pim\Structure\Component\Model\Family',
+            'table' => 'pim_catalog_family',
+            'code' => 'code'
+        ],
+        'family_variant' => [
+            'resource_name' => 'Akeneo\Pim\Structure\Component\Model\FamilyVariant',
+            'table' => 'pim_catalog_family_variant',
+            'code' => 'code'
+        ],
     ];
 
     /**
@@ -100,13 +115,16 @@ class AkeneoTrashManager
      */
     public function removeItemFromTrash($item)
     {
+        if (!\is_object($item)) {
+            throw new \Exception('Item to removed from trash should be object');
+        }
+        
         $resourceId = $item->getId();
         $resourceName = ClassUtils::getClass($item);
         $resource = $this->akeneoTrashRepository->findOneBy([
             'resourceId' => $resourceId,
             'resourceName' => $resourceName
-        ]);
-        
+            ]);
         if ($resource) {
             $this->objectManager->remove($resource);
             $this->objectManager->flush($resource);

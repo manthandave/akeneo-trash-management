@@ -3,6 +3,15 @@ ktpl:
     acl:
       akeneo_trash:
         index: List Trash
+        category:
+          index: List categories in category trash grid
+          remove: Remove categories from akeneo
+        family:
+          index: List families in family trash grid
+          remove: Remove families from akeneo
+        family_variant:
+          index: List family variants in family variant trash grid
+          remove: Remove family variants from akeneo
         product:
           index: List products in product trash grid
           remove: Remove products from akeneo
