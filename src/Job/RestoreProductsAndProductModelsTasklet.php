@@ -188,10 +188,10 @@ class RestoreProductsAndProductModelsTasklet implements TaskletInterface
         $restoredProductModelsCount = $this->countProductModelsToRestore($productModels);
 
         $this->akeneoTrashManager->removeItemsFromTrash($products);
-        $this->stepExecution->incrementSummaryInfo('retored_products', $restoredProductsCount);
+        $this->stepExecution->incrementSummaryInfo('restored_products', $restoredProductsCount);
 
         $this->akeneoTrashManager->removeItemsFromTrash($productModels);
-        $this->stepExecution->incrementSummaryInfo('retored_product_models', $restoredProductModelsCount);
+        $this->stepExecution->incrementSummaryInfo('restored_product_models', $restoredProductModelsCount);
 
         $this->cacheClearer->clear();
     }

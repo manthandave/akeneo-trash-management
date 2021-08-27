@@ -18,3 +18,17 @@ ktpl:
         restore_trash: Restore item from trash
   acl_group:
     akeneo_trash: Trash Management
+job_execution:
+  summary:
+    deleted_categories: Deleted Categories
+    deleted_families: Deleted families
+    deleted_family_variants: Deleted family variants
+    restored_categories: Restored Categories
+    restored_families: Restored Familes
+    restored_family_variants: Restored Family Variants
+    restored_products: Restored Products
+    restored_product_models: Restored Product Models
+pim_datagrid:
+  cells:
+    type:
+      mass_restore: Mass Restore
