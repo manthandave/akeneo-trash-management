@@ -105,3 +105,12 @@ pim_enrich:
               label: An error occurred during the launching of the mass edit operation
         launched:
             label: The bulk action "{{ operation }}" has been launched. You will be notified when it is done.
+batch_jobs:
+  default_steps:
+    delete_categories_from_trash: Mass delete categories
+    delete_families_from_trash: Mass delete families
+    delete_family_variants_from_trash: Mass delete family variants
+    restore_categories_from_trash: Mass restore categories
+    restore_families_from_trash: Mass restore families
+    restore_family_variants_from_trash: Mass restore family variants
+    restore_products_product_models_from_trash: Mass restore products
